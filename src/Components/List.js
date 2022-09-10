@@ -1,10 +1,15 @@
 import React, {Component} from "react";
-import {movies} from "./getmovies";
+// import {movies} from "./getmovies";
+import axios from 'axios';
+import API_KEY from "../secrets";
 export default class List extends Component{
     constructor(){
         super();
         this.state = {
             hover: "",
+            parr: [1],
+            currPage: 1,
+            movies:[],
         };
     }
     handleEnter = (id) => {
@@ -17,11 +22,20 @@ export default class List extends Component{
             hover: '',
         });
     };
+
+    async componentDidMount(){
+      let ans = await axios.get(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${this.state.currPage}`
+      );
+      this.setState({
+        movies:[...ans.data.results]
+      })
+    }
     render(){
-        let movie = movies.results;
+        // let movie = movies.results;
         return (
             <>
-            {movie.length == 0 ? (
+            {this.state.movies.length == 0 ? (
                 <div className="spinner-grow text-success" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
@@ -31,7 +45,7 @@ export default class List extends Component{
                   <strong>Trending</strong>
                 </h3>
                 <div className="movies-list">
-                  {movie.map((movieObj) => (
+                  {this.state.movies.map((movieObj) => (
                     <div
                       className="card movie-card"
                       onMouseEnter={() => this.handleEnter(movieObj.id)}
