@@ -10,6 +10,7 @@ export default class List extends Component{
             parr: [1],
             currPage: 1,
             movies:[],
+            favMov: []
         };
     }
     handleEnter = (id) => {
@@ -31,8 +32,8 @@ export default class List extends Component{
       );
       this.setState({
         movies:[...ans.data.results]
-      })
-    }
+      });
+    };
 
     handleNext = () => {
       let tempArr = [];
@@ -43,19 +44,15 @@ export default class List extends Component{
         parr: [...tempArr],
         currPage: this.state.currPage + 1
       },this.changeMovies);
-      
-    }
+    };
 
     handlePrev = () => {
       if(this.state.currPage != 1){
         this.setState({
           currPage: this.state.currPage - 1
-        },this.changeMovies);
-        
+        },this.changeMovies); 
       }
-
     }
-
     handlePageNum = (pageNum) => {
       this.setState(
         {
@@ -64,15 +61,30 @@ export default class List extends Component{
         this.changeMovies
       );
     }
+    handleFavourites = (movieObj) => {
+      let localStorageMovies = JSON.parse(localStorage.getItem("movies")) || [];
 
+      if(this.state.favMov.includes(movieObj.id)){
+        localStorageMovies = localStorageMovies.filter(
+          (movie) => movie.id != movieObj.id
+        );
+      }
+      else localStorageMovies.push(movieObj);
+      console.log(localStorageMovies);
+      localStorage.setItem("movies", JSON.stringify(localStorageMovies));
+      let tempData = localStorageMovies.map(movieObj => movieObj.id);
+      this.setState({
+        favMov: [...tempData]
+      });
+    }
     async componentDidMount(){
       console.log("componentDidMount is called");
       let ans = await axios.get(
         `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${this.state.currPage}`
       );
       this.setState({
-        movies:[...ans.data.results]
-      })
+        movies:[...ans.data.results],
+      });
     }
     render(){
       console.log("render is called");
@@ -109,11 +121,14 @@ export default class List extends Component{
                             {movieObj.overview}
                           </p> */}
                       <div className="button-wrapper">
-                        {this.state.hover == movieObj.id && 
-                          <a href="#" class="btn btn-primary movie-button">
-                            Add to Favourites
+                        {this.state.hover == movieObj.id && (
+                          <a
+                           class="btn btn-primary movie-button"
+                           onClick={() => this.handleFavourites(movieObj)}
+                           >
+                            {this.state.favMov.includes(movieObj.id)? "Remove from Favourites":"Add to Favourites"}
                           </a>
-                        }
+                        )}
                       </div>
                     </div>
                   ))}
@@ -124,7 +139,8 @@ export default class List extends Component{
                     <li class="page-item">
                         <a class="page-link" onClick={this.handlePrev}>
                             Previous
-                            </a></li>
+                            </a>
+                            </li>
                     {
                       this.state.parr.map(pageNum => (
                         <li class = "page-item">

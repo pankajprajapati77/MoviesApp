@@ -9,20 +9,22 @@ export default class Favourites extends Component {
             movies: [],
             genre: [],
             currGenre: "All Genre",
+            currText:"",
         };
     }
 
     async componentDidMount() {
-        let ans = await axios.get(
-     `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
-   );
+//         let ans = await axios.get(
+//      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
+//    );
+   let results = JSON.parse(localStorage.getItem("movies"));
 
    let genreId={28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',10751:'Family',14:'Fantasy',36:'History',
     27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',10770:'TV',53:'Thriller',10752:'War',37:'Western'};
 //    console.log(ans.data);
 
    let genreArr = [];
-   ans.data.results.map((movieObj) => {
+   results.map((movieObj) => {
     if(!genreArr.includes(genreId[movieObj.genre_ids[0]])){
         genreArr.push(genreId[movieObj.genre_ids[0]]);
     }
@@ -31,32 +33,73 @@ export default class Favourites extends Component {
    genreArr.unshift("All Genre");
    console.log(genreArr);
    this.setState({
-     movies: [...ans.data.results], //[{},{},{}]
+     movies: [...results], //[{},{},{}]
      genre: [...genreArr]
+    });
+   }
+
+   handleCurrGenre = (genre) => {
+    this.setState({
+        currGenre: genre
+    });
+   }
+
+   handleText = (e) => {
+    this.setState({
+        currText: e.target.value
     });
    }
 
   render() {
     let genreId={28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',10751:'Family',14:'Fantasy',36:'History',
     27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',10770:'TV',53:'Thriller',10752:'War',37:'Western'};
+   
+    let filteredMovies =[];
+    if(this.state.currText == ''){
+        filteredMovies = this.state.movies;
+    }
+    else{
+        filteredMovies = this.state.movies.filter(movieObj => {
+            let movieName = movieObj.original_title.toLowerCase();
+            return movieName.includes(this.state.currText);
+        })
+    }
+    if(this.state.currGenre != "All Genre"){
+        filteredMovies = this.state.movies.filter(
+            (movieObj) => genreId[movieObj.genre_ids[0]] == this.state.currGenre 
+        );
+    }
+   
     return (
       <div className='row'>
         <div className='col-3 favourites-list'>
             <ul class="list-group">
                 {this.state.genre.map((genre) => (
-                    this.state.currGenre == genre ?
+                    this.state.currGenre == genre ? (
                     <li class="list-group-item active" aria-current="true">
                     {genre}
-                    </li> :
-                    <li class="list-group-item" aria-current="true">
+                    </li> 
+                    ):(
+                    <li 
+                    class="list-group-item" 
+                    aria-current="true"
+                    onClick={() => this.handleCurrGenre(genre)}
+                    >
                     {genre}
                     </li>
+                    )
                 ))}
             </ul>
         </div>
         <div class="col favourites-table">
             <div class = "row">
-                <input type= "text" class="col-8" placeholder='Search'></input>
+                <input 
+                type= "text" 
+                class="col-8" 
+                placeholder='Search'
+                value={this.state.currText}
+                onChange={this.handleText}
+                ></input>
                 <input type= "number" class="col-4" placeholder='5'></input>
             </div>
             <div class="row">
@@ -65,13 +108,21 @@ export default class Favourites extends Component {
                         <tr>
                         <th scope="col">Title</th>
                         <th scope="col">Genre</th>
-                        <th scope="col">Popularity</th>
-                        <th scope="col">Rating</th>
+                        <th scope="col">
+                        <i class="fa-solid fa-caret-up" />
+                        Popularity
+                        <i class="fa-solid fa-caret-down" />
+                        </th>
+                        <th scope="col">
+                        <i class="fa-solid fa-caret-up" />    
+                            Rating
+                        <i class="fa-solid fa-caret-down" />
+                        </th>
                         <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.movies.map((movieObj) => (
+                        {filteredMovies.map((movieObj) => (
                         <tr>
                             <td scope='row'>
                             <img
