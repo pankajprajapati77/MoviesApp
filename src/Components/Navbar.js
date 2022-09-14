@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 export default class Navbar extends Component{
     render(){
         return (
-            <div style={{display:'flex', background:"lightblue", padding:"1rem", justifyContent:"center", alignItems:"center"}}>
-                <Link to="/" style={{ textDecoration: "none"}}>
-                    <h1>Movies App</h1>
+            <div className = "navbar-movie-fav">
+                <Link to="/">
+                    <h1 class = "navbar-movie linked">Movies App</h1>
                 </Link>
-                <Link to="/fav" style={{ textDecoration: "none"}}>
-                    <h2 style={{marginLeft:"2rem",}}>Favourites</h2>
+                <Link to="/fav">
+                    <h2 class = "navbar-favourite linked">Favourites</h2>
                 </Link>
             </div>
         )

@@ -36,9 +36,26 @@
     transform: rotate(360deg);
   }
 }
+body{
+  background-color: #16171a;
+}
+.navbar-movie-fav{
+  display:flex;
+  background-color: rgb(0, 0, 0);
+  padding: 1rem;
+  justify-Content: center;
+  align-Items: center;
+}
+.linked{
+  text-decoration:none;
+  color: white;
+}
+.navbar-favourite{
+  margin-left: 5rem;
+}
 
 .banner-card{
-  background-color: white;
+  /* background-color: white; */
   width: 100vw;
 }
 

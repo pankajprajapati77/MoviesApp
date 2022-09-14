@@ -40,7 +40,7 @@ export default class Favourites extends Component {
 
    handleCurrGenre = (genre) => {
     this.setState({
-        currGenre: genre
+        currGenre: genre,
     });
    }
 
@@ -48,6 +48,56 @@ export default class Favourites extends Component {
     this.setState({
         currText: e.target.value
     });
+   }
+
+   sortPopularityAsc = () => {
+    let allMovies = this.state.movies;
+    allMovies.sort((objA, objB) => {
+        return objA.popularity - objB.popularity;
+    });
+    this.setState({
+        movies: [...allMovies],
+    });
+   };
+
+   sortPopularityDesc = () => {
+    let allMovies = this.state.movies;
+    allMovies.sort((objA, objB) => {
+        return objB.popularity - objA.popularity;
+    });
+    this.setState({
+        movies: [...allMovies],
+    });
+   };
+
+   sortRatingAsc = () => {
+    let allMovies = this.state.movies;
+    allMovies.sort((objA, objB) => {
+        return objA.vote_average - objB.vote_average;
+    });
+    this.setState({
+        movies: [...allMovies],
+    });
+   };
+
+   sortRatingDesc = () => {
+    let allMovies = this.state.movies;
+    allMovies.sort((objA, objB) => {
+        return objB.vote_average - objA.vote_average;
+    });
+    this.setState({
+        movies: [...allMovies],
+    });
+   };
+
+   handleDelete = (id) => {
+    let newMovies = this.state.movies.filter((movieObj) => {
+        return movieObj.id != id;
+    });
+    this.setState({
+        movies:[...newMovies]
+    })
+    localStorage.setItem("movies", JSON.stringify(newMovies));
    }
 
   render() {
@@ -109,14 +159,26 @@ export default class Favourites extends Component {
                         <th scope="col">Title</th>
                         <th scope="col">Genre</th>
                         <th scope="col">
-                        <i class="fa-solid fa-caret-up" />
+                        <i 
+                        class="fa-solid fa-caret-up" 
+                        onClick={this.sortPopularityAsc}
+                        />
                         Popularity
-                        <i class="fa-solid fa-caret-down" />
+                        <i 
+                        class="fa-solid fa-caret-down" 
+                        onClick={this.sortPopularityDesc}
+                        />
                         </th>
                         <th scope="col">
-                        <i class="fa-solid fa-caret-up" />    
+                        <i 
+                        class="fa-solid fa-caret-up"
+                        onClick={this.sortRatingAsc} 
+                        />    
                             Rating
-                        <i class="fa-solid fa-caret-down" />
+                        <i 
+                        class="fa-solid fa-caret-down"
+                        onClick={this.sortRatingDesc}
+                         />
                         </th>
                         <th scope="col"></th>
                         </tr>
@@ -135,7 +197,12 @@ export default class Favourites extends Component {
                         <td>{movieObj.popularity}</td>
                         <td>{movieObj.vote_average}</td>
                         <td>
-                            <button class = "btn btn-outline-danger">Delete</button>
+                            <button 
+                            class = "btn btn-outline-danger"
+                            onClick={() => this.handleDelete(movieObj.id)}
+                            >
+                            Delete
+                            </button>
                         </td>
                         </tr>
                         ))}
