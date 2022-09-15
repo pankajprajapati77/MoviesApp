@@ -56,13 +56,16 @@ body{
 }
 
 .banner-card{
-  /* background-color: white; */
+  background-color: white;
   width: 100vw;
 }
-
 .banner-img{
   height: 70vh;
-  width: 100%w;
+  width: 100%;
+}
+.banner-image{
+  width: 100vw;
+  height: 70vh;;
 }
 
 .text-center{
@@ -186,6 +189,8 @@ background-color: rgb(6, 34, 65);
   color: black;
   font-size: 1.5rem;
   border-radius: 15%;
+  margin-top: 3rem ;
+  margin-bottom: 5rem;
 }
 .table-row-titles{
   color: white;
@@ -201,25 +206,40 @@ background-color: rgb(6, 34, 65);
   color: black;
   background-color: rgb(239, 236, 230);
 }
-/* .active{
-  color: red;
-  background-color: red;
-  
-} */
-@media screen and (min-width: 760px) and (max-width: 1000px){
-  .movie-button{
-    width: 16vw;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+@media screen and (min-width: 320px) and (max-width: 400px){
+  .banner-text{
+    font-size: 0.75rem;
+    top: 32vw;
+    left: 5vw;
+  }
+  .banner-title{
+    font-size: 1.5rem;
+    top: 7vh;
+    left: 5vw;
+  }
+  .banner-image{
+    height: 35vh;
+    width: 115vw
+  }
+  .movie-card{
+    width: 60vw;
+    height: 48vh;
+    margin: 1.5rem;
+  }
+  .navbar-movie{
+    margin-left: 2rem;
+  }
+  .navbar-movie-fav{
+    height: 5rem;
+    width: 115vw;
   }
 }
 
-@media screen and (min-width: 400px) and (max-width:760px){
+@media screen and (min-width: 400px) and (max-width:700px){
   .banner-text{
     font-size: 1rem;
-    top: 32vw;
+    top: 38vw;
     left: 5vw;
   }
   .banner-title{
@@ -233,47 +253,88 @@ background-color: rgb(6, 34, 65);
   }
   .movie-button{
     width: 80%;
-    height: 15%;
+    height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+  .banner-image{
+    width: 110vw;
+  }
+  .navbar-movie-fav{
+   
+    /* overflow: hidden; */
+    width:110vw;
+  }
 }
 
-@media screen and (min-width:400px) and (max-width:515px){
+@media screen and (min-width: 700px) and (max-width: 1000px){
   .movie-button{
-    width: 60%;
-    height: 15%;
+    width: 16vw;
+    height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.68rem;
   }
-}
-
-@media screen and (min-width: 200px) and (max-width: 400px){
   .banner-text{
-    font-size: 0.75rem;
-    top: 32vw;
+    font-size: 1rem;
+    top: 30vw;
     left: 5vw;
   }
   .banner-title{
-    font-size: 1.5rem;
-    top: 7vh;
+    font-size: 2rem;
+    top: 15vh;
     left: 5vw;
-  }
-  .banner-img{
-    height: 20rem;
-  }
-  .movie-card{
-    width: 60vw;
-    height: 48vh;
-    margin: 1.5rem;
   }
 }
 
-@media screen and (min-width:380px) and (max-width:860px){
-  .about{
-    font-size: 0.80rem;
+@media screen and (min-width: 694px) and (max-width: 1096px){
+    .table-row-titles{
+      font-size: 1rem;
+    }
+    .movie-title-name{
+      font-size: 1.4rem;
+    }
+    .fa-solid {
+      display: flex;
+    }
+    .list-group{
+      width: 10rem;
+    }
   }
-}
+@media screen and (max-width: 694px){
+    .list-group{
+      width: 20rem;
+    }
+  }
+  @media screen and (min-width: 320px) and (max-width: 440px){
+  .navbar-movie-fav{
+    width: 145vw;
+  }
+  }
+
+  /* favourites queries */
+  @media screen and (min-width: 694px) and (max-width: 1096px){
+    .table-row-titles{
+      font-size: 1rem;
+    }
+    .movie-title-name{
+      font-size: 1.4rem;
+    }
+    .fa-solid {
+      display: flex;
+    }
+    .list-group{
+      width: 10rem;
+    }
+  }
+@media screen and (max-width: 694px){
+    .list-group{
+      width: 20rem;
+    }
+  }
+  @media screen and (min-width: 320px) and (max-width: 440px){
+  .navbar-movie-fav{
+    width: 145vw;
+  }
+  }

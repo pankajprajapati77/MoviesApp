@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import './Favourites.css';
 // import {Footer} from "./Footer";
 import API_KEY from '../secrets';
 export default class Favourites extends Component {
@@ -146,7 +147,7 @@ export default class Favourites extends Component {
             <div class = "row">
                 <input 
                 type= "text" 
-                class="col-12" 
+                class="col-12 search-input" 
                 placeholder='Search'
                 value={this.state.currText}
                 onChange={this.handleText}
