@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar';
 import Banner from './Components/Banner';
 import List from './Components/List';
 import Favourites from './Components/Favourites';
+import Footer from './Components/Footer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -15,11 +16,12 @@ function App() {
         <>
           <Banner/> 
           <List/>
+          <Footer/>
         </>
         }/>
         <Route path='/fav' element = {<Favourites/>}/>
       </Routes>
-      {/* <Banner/> */}
+      
     </BrowserRouter>
   );
 }

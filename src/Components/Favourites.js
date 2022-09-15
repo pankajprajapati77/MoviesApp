@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+// import {Footer} from "./Footer";
 import API_KEY from '../secrets';
 export default class Favourites extends Component {
 
@@ -145,17 +146,17 @@ export default class Favourites extends Component {
             <div class = "row">
                 <input 
                 type= "text" 
-                class="col-8" 
+                class="col-12" 
                 placeholder='Search'
                 value={this.state.currText}
                 onChange={this.handleText}
                 ></input>
-                <input type= "number" class="col-4" placeholder='5'></input>
+                {/* <input type= "number" class="col-4" placeholder='5'></input> */}
             </div>
             <div class="row">
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="table-row-titles Genre">
                         <th scope="col">Title</th>
                         <th scope="col">Genre</th>
                         <th scope="col">
@@ -185,11 +186,11 @@ export default class Favourites extends Component {
                     </thead>
                     <tbody>
                         {filteredMovies.map((movieObj) => (
-                        <tr>
-                            <td scope='row'>
+                        <tr class="table-row-titles">
+                            <td scope='row' class="movie-title-name">
                             <img
-                                src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`}
-                                style={{ width: "8rem" }}
+                                src={`https://image.tmdb.org/t/p/original${movieObj.poster_path}`}
+                                style={{ width: "6rem", height:"8rem",paddingRight: "0.5rem" }}
                             />
                                {movieObj.original_title}
                         </td>

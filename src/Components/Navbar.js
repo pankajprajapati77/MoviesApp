@@ -4,11 +4,11 @@ export default class Navbar extends Component{
     render(){
         return (
             <div className = "navbar-movie-fav">
-                <Link to="/">
-                    <h1 class = "navbar-movie linked">Movies App</h1>
+                <Link to="/" class = "navbar-movie linked">
+                    <h1 >Movies App</h1>
                 </Link>
-                <Link to="/fav">
-                    <h2 class = "navbar-favourite linked">Favourites</h2>
+                <Link to="/fav" class = "navbar-favourite linked">
+                    <h2 >Favourites</h2>
                 </Link>
             </div>
         )

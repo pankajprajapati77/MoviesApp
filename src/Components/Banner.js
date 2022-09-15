@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {movies} from './getmovies'
 export default class Bannner extends Component{
     render() {
-        let movie = movies.results[0];
+        let movie = movies.results[13];
         return (
             <>
             {movie == "" ? (

@@ -108,10 +108,10 @@ export default class List extends Component{
                       onMouseLeave={this.handleLeave}
                     >
                       <img
-                        src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`}
+                        src={`https://image.tmdb.org/t/p/original${movieObj.poster_path}`}
                         className="card-img-top banner-img"
                         alt="..."
-                        style={{ height: "40vh" }}
+                        style={{ height: "54vh" }}
                       />
                       {/* <div className="card-body "> */}
                       <h5 className="card-title movie-title">
@@ -158,7 +158,7 @@ export default class List extends Component{
                         </ul>
                     </nav>
                  </div>
-                </div>
+      </div>
                 )}
             </>
         );
